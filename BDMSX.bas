@@ -287,7 +287,7 @@
 289 N2$=" "+CHR$(72)+CHR$(46)+" "+CHR$(77)+CHR$(46)+" "
 290 N3$=CHR$(66)+CHR$(101)+CHR$(114)+CHR$(103)+CHR$(97)+CHR$(109)+CHR$(105)+CHR$(110)+CHR$(105)
 291 CLS:PRINT STRING$(39,200):PRINT "Por ";:PRINT N1$;:PRINTN2$;:PRINTN3$:PRINT STRING$(39,200):PRINT
-292 INPUT "Esta trabalhando com cassete? (S/N) ";AT$
+292 INPUT "Esta trabalhando com cassete? (S/N)";AT$
 293 IF AT$ = "S" OR AT$="s" THEN MF=7:MI=ZI+33 ELSE IF AT$="N" OR AT$="n" THEN MF=7:MI=ZY-7:ELSE PRINT "Opcao invalida": GOTO 292
 294 GOTO 15
 
