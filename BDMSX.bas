@@ -114,6 +114,7 @@
 114 GOSUB 71
 115 IF A<>"S" THEN GOSUB 98:GOTO113
 116 PRINT:PRINT "Modificar outro registro (S/N)";: GOSUB 72
+117 IF A="S" THEN 110 ELSE 74
 118 INPUT "No. Registro a ser deletado";J
 119 J=J-1:IF J>=0 AND J<= NI THEN 121
 120 PRINT "Registro No.";J+1;"nao esta no banco":GOTO 126
@@ -261,7 +262,8 @@
 262 IF U$="S"THEN 263 ELSE IF U$="N"THEN 74
 263 CLS:CLOSE:KEY1,"COLOR":KEY2,"AUTO":KEY3,"GOTO":KEY4,"LIST":KEY5,"RUN"+CHR$(13):KEY6,"COLOR15,1,1"+CHR$(13):KEY7,"CLOAD":KEY8,"CONT":KEY9,"LIST"+CHR$(13):KEY10,"RUN":KEYON:LOCATE15,11:PRINT"FIM":END
 264 PRINT "Pressione <S> p/ impressao";:INPUT IP$:IF IP$="S" OR IP$="s"THEN RETURN
-265 PRINT "Redefinicao de teclas:"
+265 PRINT "Responda com 'S'!": GOTO 264
+266 PRINT "Redefinicao de teclas:"
 267 INPUT "Quer redefinir alguma tecla (S/N) ";UQ$
 268 IF UQ$="N" THEN RETURN 
 269 INPUT "Qual tecla (1-10)";T
@@ -287,7 +289,7 @@
 289 N2$=" "+CHR$(72)+CHR$(46)+" "+CHR$(77)+CHR$(46)+" "
 290 N3$=CHR$(66)+CHR$(101)+CHR$(114)+CHR$(103)+CHR$(97)+CHR$(109)+CHR$(105)+CHR$(110)+CHR$(105)
 291 CLS:PRINT STRING$(39,200):PRINT "Por ";:PRINT N1$;:PRINTN2$;:PRINTN3$:PRINT STRING$(39,200):PRINT
-292 INPUT "Esta trabalhando com cassete? (S/N)";AT$
+292 INPUT "Esta trabalhando com cassete? (S/N) ";AT$
 293 IF AT$ = "S" OR AT$="s" THEN MF=7:MI=ZI+33 ELSE IF AT$="N" OR AT$="n" THEN MF=7:MI=ZY-7:ELSE PRINT "Opcao invalida": GOTO 292
 294 GOTO 15
 
