@@ -57,7 +57,7 @@
 57 INPUT #1,X(I,J):GOTO 59
 58 INPUT #1,A(I,J):NU=NI+1:IF NU-J=0 THEN 43
 59 NEXT I,J:CLOSE:GOTO 43
-60 CLS:INPUT "Nomedo arq. a ser chamado";CU$
+60 CLS:INPUT "Nome do arq. a ser chamado";CU$
 61 OPEN"A:"+CU$+".ARQ" FOR INPUT AS$1
 62 INPUT #1,NI,NF
 63 FOR I=0 TO NF: INPUT#1, D(I), AT(I):NEXT I
