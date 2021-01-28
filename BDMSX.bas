@@ -1,63 +1,61 @@
 1 KEYOFF:COLOR 3,1: FOR A = 1 TO 10: KEY A,"":NEXT
 2 SCREEN 3
 3 OPEN "GRP:"AS#1
-4 PRESET(10,20): PRINT#1," BANCO"
-5 PRESET(50,70):PRINT#1," DE"
-6 PRESET(40,130):PRINT#1, "DADOS"
+4 PRESET(50,20): PRINT#1," DATABASE"
 7 FOR QW = 1 TO 3000: NEXT QW
 8 CLOSE
-9 CLS:SCREEN 0
+9 CLS:SCREEN 0: GOTO 281
 10 CLEAR 5000: ZY=67:ZA=97:ZB=ZA+17:ZC=108:ZD=ZC+3:ZE=ZC-8:ZF=ZE+5:ZG=ZF+10:ZH=82
 11 POKE 64683!,225:ZY$=CHR$(ZY)+CHR$(ZA)+CHR$(ZB)+CHR$(ZC)+CHR$(ZD)+CHR$(ZG):ZQ$=CHR$(ZH)+CHR$(ZF)+CHR$(99)+CHR$(ZA)+CHR$(ZB)+CHR$(ZE)+CHR$(ZD)
 12 DEFSTRA-H:DEFINTI-S
 13 B="":F1="########.##"
 14 MF=7:MI=ZY-7
-15 DIM D(MF),AT(MF),F(MF),T(MF),NF(MF)
+15 DIM D(MF),AT(MF),F(MF),T(MF),NF(MF):PRINT AT$
 16 DIM O(MI), Y(MI), B(MI), A(MF,MI), X(MF,MI)
 17 ONERRORGOTO74
 18 CLS
 19 PRINT STRING$(39,200)
-20 PRINT "Produzido por ";ZY$;" & "ZQ$
+20 PRINT "Produced by ";ZY$;" & "ZQ$
 21 PRINT STRING$(39,200)
 22 PRINT
-23 PRINT TAB(12)"BANCO DE DADOS"
-24 PRINT TAB(12)"----- -- -----"
-25 PRINT TAB(12)"SELECIONE A OPCAO:":PRINT
-26 PRINT TAB(12)"1 - Criar novo arquivo"
-27 PRINT TAB(12)"2 - Carregar um arquivo":PRINT
+23 PRINT TAB(12)"DATABASE"
+24 PRINT TAB(12)"--------"
+25 PRINT TAB(12)"SELECT OPTION:":PRINT
+26 PRINT TAB(12)"1 - Create new file"
+27 PRINT TAB(12)"2 - Upload new file":PRINT
 28 PRINT STRING$(39,200):PRINT
-29 PRINT:PRINT"     --> ";:INPUT "OPCAO: ";N
+29 PRINT:PRINT"     --> ";:INPUT "OPTION: ";N
 30 IF ZC <> 108 THEN NEW
 31 IF N < 1 OR N > 32 THEN 23
 32 ONN GOTO 33,47
-33 CLS:NF=0:NI=0:PRINT "Defina os campos:":PRINT STRING$(39,200)
-34 PRINT "Entre com a definicao:":PRINT"<N> para numerico ou <A> para alfa": PRINT STRING$(39,200)
+33 CLS:NF=0:NI=0:PRINT "Define the fields:":PRINT STRING$(39,200)
+34 PRINT "Enter the definition:":PRINT"<N> for numeric or <A> for alpha": PRINT STRING$(39,200)
 35 FOR I=0 TO MF: AT(I)="": D(I)=""
-36 PRINT "Campo no. "I+1;:INPUT D(I), AT(I)
+36 PRINT "Field n. "I+1;:INPUT D(I), AT(I)
 37 IF LEN(D(I))>10 THEN (I) = LEFT$(D(I),10)
 38 IF D(I)="" THEN 42
 39 IF AT(I)="N" OR AT(I)="A" THEN 41
-40 PRINT "Voce deve especificar <N> ou <A>": GOTO 36
+40 PRINT "You must specify <N> or <A>": GOTO 36
 41 NEXT I
 42 NF=I-1:NI=-1
-43 CLS:PRINT "O banco tem";NF+1;"campos, desta maneira:"
+43 CLS:PRINT "The bank has";NF+1;"fields, like this:"
 44 FOR I = 0 TO NF
-45 PRINT "Campo no. ";I+1;":"; D(I); TAB(30);AT(I)
+45 PRINT "Field n. ";I+1;":"; D(I); TAB(30);AT(I)
 46 NEXT I: GOSUB 69: GOTO 74
-47 CLS:LOCATE 0,11:PRINT "O arquivo foi gravado em <D>isco ou <F>ita?"
-48 HJ$=INKEY$:IF HJ$=""THEN 47 ELSEIF HJ$="F" THEN 49 ELSEIF HJ$="D"THEN 60 ELSE 48 
-49 CLS:PRINT "Prepare o cassete"
-50 PRINT"<ENTER>+<CONTROL>+<STOP> p/ voltar": GOSUB 69
+47 CLS:LOCATE 0,11:PRINT "Was the file recorded in <D>isk or <T>ape?"
+48 HJ$=INKEY$:IF HJ$=""THEN 47 ELSEIF HJ$="T" THEN 49 ELSEIF HJ$="D"THEN 60 ELSE 48 
+49 CLS:PRINT "Prepare the cassette"
+50 PRINT"<ENTER>+<CONTROL>+<STOP> to return": GOSUB 69
 51 OPEN"CAS:"FOR INPUT AS#1
 52 INPUT #1,NI,NF
 53 FOR I=0 TO NF: INPUT #1,D(I),AT(I):NEXT I
 54 FOR J=0 TO NI:FOR I=0 TO NF: IF AT(I)="N"THEN 57
 55 IF AT(I)="A" THEN 58
-56 PRINT "ERRO DE LEITURA"; GOSUB 69: GOTO 23
+56 PRINT "READING MISTAKE": GOSUB 69: GOTO 23
 57 INPUT #1,X(I,J):GOTO 59
 58 INPUT #1,A(I,J):NU=NI+1:IF NU-J=0 THEN 43
 59 NEXT I,J:CLOSE:GOTO 43
-60 CLS:INPUT "Nome do arq. a ser chamado";CU$
+60 CLS:INPUT "Name of the file to be called";CU$
 61 OPEN"A:"+CU$+".ARQ" FOR INPUT AS$1
 62 INPUT #1,NI,NF
 63 FOR I=0 TO NF: INPUT#1, D(I), AT(I):NEXT I
@@ -66,85 +64,85 @@
 66 INPUT #1,X(I,J):GOTO 68
 67 INPUT #1,A(I,J):NU=NI+1:IF NU-J = 0 THEN 43
 68 NEXT I,J:CLOSE:GOTO 43
-69 PRINT:INPUT"APERTE 'ENTER' QUANDO ESTIVER PRONTO";EN
+69 PRINT:INPUT"PRESS 'RETURN' WHEN YOU'RE READY";EN
 70 RETURN
-71 PRINT"Esta correto (S/N) ";
-72 INPUT A$: IF A$="S" OR A$="N" THEN RETURN
-73 PRINT "Responda com 'S' ou 'N'": GOTO 72
-74 CLS:PRINT TAB(10);"Comandos do sistema:":PRINT STRING$(39,200):PRINT
-75 PRINT"C-COLOCAR       ***       L-LISTAR " 
-76 PRINT"M-MODIFICAR     ***       N-NOVO BANCO " 
-77 PRINT"D-DELETAR       ***       S-SAIR       "
-78 PRINT"O-ORDENAR       ***       P-PROCURAR   "
-79 PRINT"J-JUST.IMP.     ***       G-GRAVAR"
-80 PRINT"T-TOTALIZAR     ***       I-IMPRIMIR "
-81 PRINT"R-REDEFINIDOR   ***       F-FIRETORIO"
-82 PRINT:PRINT STRING$(39,200):PRINT" ---> ";:INPUT "COMANDO ";A
+71 PRINT"This is correct (Y/N) ";
+72 INPUT A$: IF A$="Y" OR A$="N" THEN RETURN
+73 PRINT "Answer with 'Y' or 'N'": GOTO 72
+74 CLS:PRINT TAB(10);"System commands:":PRINT STRING$(39,200):PRINT
+75 PRINT"U-PUT ON        ***       L-LIST " 
+76 PRINT"M-MODIFY        ***       N-NEW BANK " 
+77 PRINT"D-DELETE        ***       E-EXIT       "
+78 PRINT"O-ORDER         ***       P-RESEARCH   "
+79 PRINT"J-JUST.PRIN.    ***       S-SAVE"
+80 PRINT"T-TOTALIZE      ***       I-PRINT OUT "
+81 PRINT"R-REDEFINER     ***       F-DIRECTORY"
+82 PRINT:PRINT STRING$(39,200):PRINT" ---> ";:INPUT "COMMAND ";A
 83 IF LEN(A)<>1 THEN 74
 84 RESTORE:FOR I=1 TO 14
 85 READ C,N: IF A=C THEN CLS:GOTO 87
 86 NEXT I: GOTO 74
 87 ONNGOTO91,110,118,88,128,222,228,23,244,145,163, 179,266,276
 88 GOTO 260
-89 DATA"C",1,"M",2,"D",3,"S",4,"P",5,"J",6,"L",7
-90 DATA "N",8,"I",9,"0",10,"T",11,"G",12,"R",13,"F",14
+89 DATA"U",1,"M",2,"D",3,"E",4,"P",5,"J",6,"L",7
+90 DATA "N",8,"I",9,"O",10,"T",11,"S",12,"R",13,"F",14
 91 NI=NI+1:J=NI
 92 GOSUB 98:GOSUB 104
 93 GOSUB 71
-94 IFA<>"S"THEN 92
-95 PRINT"Banco contem";NI+1;" registros."
-96 PRINT:PRINT"Colocar outro registro (S/N)";:GOSUB 72
-97 IF A="S" THEN 91 ELSE 74
-98 CLS:PRINT "No. do registro";J+1:PRINT
+94 IFA<>"Y"THEN 92
+95 PRINT"Bank contains ";NI+1;" registry."
+96 PRINT:PRINT"Place another registry (Y/N)";:GOSUB 72
+97 IF A="Y" THEN 91 ELSE 74
+98 CLS:PRINT "N. of registry";J+1:PRINT
 99 FOR I=0 TO NF:PRINT D(I);
 100 IF AT(I)="N" THEN 102
 101 INPUT A(I,J):X(I,J)=0:GOTO 103
 102 INPUT X(I,J):A(I,J)=""
 103 NEXT I:RETURN
-104 CLS:PRINT "Registro No.";J+1;"agora esta assim:"
+104 CLS:PRINT "Registry N. ";J+1;" now looks like this:"
 105 PRINT:FOR I=0 TO NF: PRINT D(I); TAB(11);
 106 IF AT(I)="N" THEN 108
 107 PRINT B; A(I,J):GOTO 109
 108 PRINT USING F1;X(I,J)
 109 NEXT I:PRINT:RETURN
-110 INPUT "No. do registro a modificar";J
+110 INPUT "N. of registry to modify";J
 111 IF J>0 AND J<NI+2 THEN J=J-1:GOTO 113
-112 PRINT "Registro No.";J;"nao esta no banco":GOTO 116
+112 PRINT "Registry N.";J;"not in the bank":GOTO 116
 113 GOSUB 104
 114 GOSUB 71
-115 IF A<>"S" THEN GOSUB 98:GOTO113
-116 PRINT:PRINT "Modificar outro registro (S/N)";: GOSUB 72
-117 IF A="S" THEN 110 ELSE 74
-118 INPUT "No. Registro a ser deletado";J
+115 IF A<>"Y" THEN GOSUB 98:GOTO113
+116 PRINT:PRINT "Modify another registry (Y/N)";: GOSUB 72
+117 IF A="Y" THEN 110 ELSE 74
+118 INPUT "N. Registry to be deleted";J
 119 J=J-1:IF J>=0 AND J<= NI THEN 121
-120 PRINT "Registro No.";J+1;"nao esta no banco":GOTO 126
+120 PRINT "Registry N.";J+1;"not in the bank":GOTO 126
 121 IF J=NI THEN 125 ELSE K=J-1
-122 K=K+1:FOR I\0 TO NF
+122 K=K+1:FOR I=0 TO NF
 123 A(I,K)=A(I,K+1):X=(I,K+1):NEXT I
 124 IF K<NI-1 THEN 122
-125 NI=NI-1:PRINT"Banco comtem";NI+1;"registros"
-126 PRINT:PRINT "Deletar outro registro (S/N)";: GOSUB 72
-127 IF A="S" THEN 118 ELSE 74
-128 A="a ser procurado"
+125 NI=NI-1:PRINT"Bank contains";NI+1;"registry"
+126 PRINT:PRINT "Delete another registry (Y/N)";: GOSUB 72
+127 IF A="Y" THEN 118 ELSE 74
+128 A="to be sought"
 129 FOR I=0 TO NF
-130 PRINT"Campo No.  ";I+1;D(I)
+130 PRINT"Field N.  ";I+1;D(I)
 131 NEXT I
 132 GOSUB 142
-133 PRINT "Entre expressao a ser procurada";
-134 IF AT(M)"N" THEN INPUT X:L=2:GOTO 136
+133 PRINT "Enter expression to be sought";
+134 IF AT(M)="N" THEN INPUT X:L=2:GOTO 136
 135 INPUT A:L=1
 136 K=0:FOR J=0 TO NI:ON L GOTO 137,138
 137 U=LEN(A):IF LEFT$(A(M,J),U)<>A THEN 140 ELSE 139
 138 IF X(M,J)<>X THEN 140
 139 GOSUB 104:GOSUB 69:K=K+1
 140 NEXT J:CLS
-141 PRINT K;"REGISTROS ENCONTRADOS.":GOSUB 69:GOTO 74
-142 PRINT "Entre o No. do campo ";A;:INPUT M
+141 PRINT K;"REGISTRYS FOUND.":GOSUB 69:GOTO 74
+142 PRINT "Enter with N. of field ";A;:INPUT M
 143 M=M-1:IF M>=0 AND M<= NF THEN RETURN
-144 PRINT "No. de campo ilegal": GOTO 142
-145 A= "a ser ordenado"
+144 PRINT "Illegal field number": GOTO 142
+145 A= "to be ordered"
 146 FOR I=0 NF
-147 PRINT "Campo No. ";I+1;D(I)
+147 PRINT "Field N. ";I+1;D(I)
 148 NEXT I
 149 GOSUB 142
 150 IF AT(M)="A"THEN 157
@@ -160,24 +158,24 @@
 160 C=B(J):B(J)=B(I):B(I)=C
 161 O=O(J):O(J)=O(I):O(I)=O:GOTO 159
 162 NEXT I,J:GOTO 74
-163 A="Para totalizar"
+163 A="To totalize"
 164 FOR I=0 TO NF
-165 IF AT(I)="N"THEN PRINT "Campo No. ";I+1;D(I)
+165 IF AT(I)="N"THEN PRINT "Field N. ";I+1;D(I)
 166 NEXT I
 167 GOSUB 142
-168 PRINT "Totalizar todos os registros (S/N) ";:GOSUB 72
-169 IF A="S"THEN 171
+168 PRINT "Totalize all the registrys (Y/N) ";:GOSUB 72
+169 IF A="Y"THEN 171
 170 GOTO 74
-171 I=0:K=0:FOR I=0 TO NI:IF A="S"THEN 175
+171 I=0:K=0:FOR I=0 TO NI:IF A="Y"THEN 175
 172 IF AT(MC)="N"THEN 174
 173 IF A=A(MC,I) THEN 175 ELSE 176
 174 IF X<>X(MC,I)THEN 176
 175 T=T+X(M,I):K=K+1
 176 NEXT I
-177 PRINT:PRINT "Total para o campo < ";B;D(M);B;" > e ":PRINT USING F1;T
-178 PRINT K; "Itens somados":GOSUB69:GOTO 74
+177 PRINT:PRINT "Total for the field < ";B;D(M);B;" > e ":PRINT USING F1;T
+178 PRINT K; "Summed items":GOSUB69:GOTO 74
 179 N=1:GOTO180
-180 CLS:LOCATE0,11:PRINT "Quer gravar em <D>isco ou <F>ita?" 
+180 CLS:LOCATE0,11:PRINT "Do you want to record on <D>isk or <T>ape?" 
 181 HJ$=INKEY$:IF HJ$="" THEN 180 ELSEIF HJ$="D" THEN 191 ELSE 181
 182 CLS:PRINT "Prepare o gravador/fita":GOSUB 69
 183 OPEN "CAS:"FOROUTPUTAS#1
@@ -188,42 +186,42 @@
 188 PRINT#1,X(I,J): GOTO 190
 189 PRINT#1,A(I,J):NU=NI+1:IF NU-J=0 THEN 74
 190 NEXT I,J: CLOSE:GOTO 74
-191 CLS:INPUT "Qual o nome do arquivo";NO$
+191 CLS:INPUT "What is the file name";NO$
 192 OPEN "A:"+NO$+" .ARQ" FOROUTPUT AS#1
 193 PRINT#1,NI,NF
-194 FOR I=0 TO NF:PRINT#!,D(I)","AT(I):NEXT I
+194 FORI=0TONF:PRINT#!,D(I)","AT(I):NEXTI
 195 FOR J=0 TO NI:FOR I=0 TO NF: IF AT(I)="N" THEN 197
 196 IF AT(I)="A" THEN 198
 197 PRINT#1,X(I,J):GOTO 199
 198 PRINT#1,A(I,J):NU+NI+1:IF NU-J=0 THEN 74
 199 NEXT I,J: CLOSE:GOTO 74
-200 PRINT "Listar todo o banco (S/N) ";GOSUB 72
-201 IF A="S"THEN I1=0:I2=NI:GOTO 205
-202 INPUT "Primeiro e ultimo no. de registro ";I1,I2
+200 PRINT "List all the bank (S/N) ";:GOSUB 72
+201 IF A="Y"THEN I1=0:I2=NI:GOTO 205
+202 INPUT "First and last n. of registry ";I1,I2
 203 I1=I1-1: IF I1<0 THEN I1=0
 204 I2=I2-1: IF I2>NI THEN I2=NI
-205 PRINT "Imprimir definicoes dos campos (S/N)";:GOSUB 72
-206 PRINT "Imprimir o No. dos registros (S/N)";: GOSUB 72
-207 PRINT "Imprimir o No. dos registros (S/N)";: GOSUB 72
-208 IF A="S" THEN PR=1 ELSE PR=2
-209 PRINT "Em ordem: 1 - Crescente":PRINT "2 - Alfabetica ou Numerica";: INPUT PO
+205 PRINT "Print field definitions (Y/N)";:GOSUB 72
+206 PRINT "Print N. of the  Fields (Y/N)";: GOSUB 72
+207 PRINT "Print N. of the registry (Y/N)";: GOSUB 72
+208 IF A="Y" THEN PR=1 ELSE PR=2
+209 PRINT "In order: 1 - Growing":PRINT "2 - Alphabetical or Numerical";: INPUT PO
 210 IF PO<1 OR PO>2 THEN 209
-211 PRINT "Impressao justificada (S/N)";:GOSUB 72
-212 IF A="S" THEN PJ=1 ELSE PJ=2
-213 PRINT "Formatar campos numericos (S/N)";: GOSUB 72
+211 PRINT "Justified impression (Y/N)";:GOSUB 72
+212 IF A="Y" THEN PJ=1 ELSE PJ=2
+213 PRINT "Format numeric fields (Y/N)";: GOSUB 72
 214 IF A="N" THEN 220
 215 FOR I=0 TO NF:IF AT(I)<>"N"THEN 218
-216 PRINT"Campo";I+1;"(S/N)";:GOSUB 72
-217 IF A="S"THEN NF(I)=1:GOTO 219
+216 PRINT"Field";I+1;"(Y/N)";:GOSUB 72
+217 IF A="Y"THEN NF(I)=1:GOTO 219
 218 NF(I)=0
 219 NEXT I
-220 INPUT "No. de linhas em branco entre Regs.";LB
+220 INPUT "N. of blank lines between Regs.";LB
 221 RETURN
-222 PRINT "Coloque  a tabulacao para cada campo":PRINT "(0=Nova linha)"
+222 PRINT "Place the tab for each field":PRINT "(0=New Line)"
 223 FOR I=0 TO NF
-224 PRINT "Campo No. ";I+1;D(I)
+224 PRINT "Field N. ";I+1;D(I)
 225 NEXT I
-226 FOR I=0 TO NF:PRINT"Tabulacao para o campo";I+1;
+226 FOR I=0 TO NF:PRINT"Tabulation for the field";I+1;
 227 INPUT T(I):NEXT I:GOSUB 74
 228 GOSUB 200:K=I1
 229 IF PO=1 THEN J=K ELSE J=O(K)
@@ -240,8 +238,8 @@
 240 PRINT
 241 NEXT I:GOSUB 69:FOR L=1 TO LB:PRINT:NEXT L
 242 K=K+1:IF K<I2 THEN 229
-243 PRINT "Acabou a listagem c/";NI+1;"regs.":GOSUB 69:GOTO 74
-244 PRINT "Apronte a impressora.":GOSUB 264:CLS:LPRINTCHR$(27);"3";CHR$(19):GOSUB 200:K=I1
+243 PRINT "Listing is over with";NI+1;"regs.":GOSUB 69:GOTO 74
+244 PRINT "Ready the printer.":GOSUB 264:CLS:LPRINTCHR$(27);"3";CHR$(19):GOSUB 200:K=I1
 245 IF PO=1 THEN J=K ELSE J=O(K)
 246 IF PR=1 THEN L PRINT "(";J;")"
 247 FOR I=0 TO NF
@@ -257,27 +255,44 @@
 257 NEXT I
 258 K=K+1:IF K<=I2 THEN 245
 259 GOSUB 69:GOTO 74
-260 CLS:LOCATE10,11:PRINT "*** Cuidado ***"
-261 LOCATE0,12:INPUT "Ja gravou este arquivo (S/N) ";U$
-262 IF U$="S"THEN 263 ELSE IF U$="N"THEN 74
+260 CLS:LOCATE10,11:PRINT "*** Caution ***"
+261 LOCATE0,12:INPUT "You already saved this file (Y/N) ";U$
+262 IF U$="Y"THEN 263 ELSE IF U$="N"THEN 74
 263 CLS:CLOSE:KEY1,"COLOR":KEY2,"AUTO":KEY3,"GOTO":KEY4,"LIST":KEY5,"RUN"+CHR$(13):KEY6,"COLOR15,1,1"+CHR$(13):KEY7,"CLOAD":KEY8,"CONT":KEY9,"LIST"+CHR$(13):KEY10,"RUN":KEYON:LOCATE15,11:PRINT"FIM":END
-264 PRINT "Pressione <S> p/ impressao";:INPUT IP$:IF IP$="S"OR IP$="s"THEN RETURN
-265 PRINT "Responda com 'S'!": GOTO 264
-266 PRINT "Redefinicao de teclas:"
-267 INPUT "Quer redefinir alguma tecla (S/N) ";UQ$
+264 PRINT "Press <S> to print";:INPUT IP$:IF IP$="Y" OR IP$="y"THEN RETURN
+265 PRINT"Answer with 'Y'!": GOTO 264
+266 PRINT "Resetting keys:"
+267 INPUT "Do you want to reset some key (Y/N) ";UQ$
 268 IF UQ$="N" THEN RETURN 
-269 INPUT "Qual tecla (1-10)";T
-270 INPUT "Qual a nova funcao ";UY$
+269 INPUT "Which key (1-10)";T
+270 INPUT "What is the new function ";UY$
 271 INPUT KEYT,UY$
-272 INPUT "Mais alguma redefinicao (S/N) ";UQ$
+272 INPUT "Some more redefinition (Y/N) ";UQ$
 273 IF UQ$="N"THEN 275
 274 GOTO 269
 275 GOTO 74
-276 PRINT "Atencao: so p/ usuarios de disco!":PRINT "Tecle <S> p/ continuar ou <V> para voltar"
-277 ZT$=INKEY$:IF ZT$=""THEN 277 ELSE IF ZT$="S" THEN 278 ELSE IF ZT$="V" THEN 280 ELSE 277
-278 CLS:PRINT "DIRETORIO:":PRINT:FILES:LOCATE0,21:PRINT "Deseja ver diretorio de outro disco?"
-279 UL$=INKEY$:IF UL$=""279 IF UL$="S" THEN 278 ELSE IF UL$="N" THEN 280 ELSE 279
+276 PRINT "Attention: only for disk users!":PRINT "Press <Y> to continue or <R> to return"
+277 ZT$=INKEY$:IF ZT$=""THEN 277 ELSE IF ZT$="Y" THEN 278 ELSE IF ZT$="R" THEN 280 ELSE 277
+278 CLS:PRINT "DIRECTORY:":PRINT:FILES:LOCATE0,21:PRINT "Do you want to see another album's directory?"
+279 UL$=INKEY$:IF UL$="" THEN 279 IF UL$="Y" THEN 278 ELSE IF UL$="N" THEN 280 ELSE 279
 280 GOTO 74
+281 PRINT STRING$(39,200)
+282 NOME$=CHR$(70)+CHR$(108)+CHR$(97)+CHR$(118)+CHR$(105)+CHR$(111)+" "+CHR$(72)+CHR$(46)+" "+CHR$(77)+CHR$(46)+" "+CHR$(66)+CHR$(101)+CHR$(114)+CHR$(103)+CHR$(97)+CHR$(109)+CHR$(105)+CHR$(110)+CHR$(105) 
+283 PRINT "Recompiled and modified in 2021 by: ":PRINT NOME$:PRINT STRING$(39,200):PRINT
+284 PRINT "Originally created for":PRINT "TRS-80, adapted by Carlos and Ricardo":PRINT
+285 PRINT "This database was published in":PRINT"magazine 'MSX Micro, MSX nas Escolas' in 1987"
+286 PRINT STRING$(39,200):PRINT:INPUT"PRESS 'RETURN' WHEN YOU'RE READY";EN
+287 CLS:GOTO 10 
+288 N1$=CHR$(70)+CHR$(108)+CHR$(97)+CHR$(118)+CHR$(105)+CHR$(111)
+289 N2$=" "+CHR$(72)+CHR$(46)+" "+CHR$(77)+CHR$(46)+" "
+290 N3$=CHR$(66)+CHR$(101)+CHR$(114)+CHR$(103)+CHR$(97)+CHR$(109)+CHR$(105)+CHR$(110)+CHR$(105)
+291 CLS:PRINT STRING$(39,200):PRINT "Por ";:PRINT N1$;:PRINTN2$;:PRINTN3$:PRINT STRING$(39,200):PRINT
+
+
+
+
+
+
 
 
 
